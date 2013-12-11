@@ -7,13 +7,17 @@
 		"oauth2"
 	],
 	"author": {
-		"name": "NightWorld",
-		"email": "code@nightworld.com"
+		"name": "Everett Quebral",
+		"email": "Everett.Quebral@gmail.com"
 	},
 	"contributors": [
 		{
 			"name": "Thom Seddon",
 			"email": "thom@nightworld.com"
+		},
+		{
+			"name": "NightWorld",
+			"email": "code@nightworld.com"
 		}
 	],
 	"main": "lib/oauth2server.js",
@@ -38,6 +42,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nightworld/node-oauth2-server.git"
+		"url": "https://github.com/EverettQuebral/node-oauth2-server.git"
 	}
 }
