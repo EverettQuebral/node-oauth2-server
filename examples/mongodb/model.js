@@ -82,14 +82,9 @@ model.grantTypeAllowed = function (clientId, grantType, callback) {
 model.saveAccessToken = function (accessToken, clientId, userId, expires, callback) {
 	console.log('in saveAccessToken (accessToken: ' + accessToken + ', clientId: ' + clientId + ', userId: ' + userId + ', expires: ' + expires + ')');
 	
-	var accessToken = new OAuthAccessTokensModel({
-		access_token: accessToken,
-		client_id: clientId,
-		user_id: userId,
-		expires: expires
-	});
+	var a = mongoose.model('OAuthAccessTokens', OAuthAccessTokensSchema);
 
-	accessToken.save(callback);
+	a.findOneAndUpdate({clientId:clientId}, {access_token:accessToken, user_id: userId, expires: expires}, {upsert:true}, callback);
 };
 
 /*
