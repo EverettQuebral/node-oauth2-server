@@ -43,9 +43,17 @@ var OAuthUsersSchema = new Schema({
 	email: { type: String, default: '' }
 });
 
+//
+// Authorized Client ID - only for granting password
+//
+var OAuthAuthorizedClientsSchema = new Schema({
+	client_id : {type :String}
+});
+
 mongoose.model('OAuthAccessTokens', OAuthAccessTokensSchema);
 mongoose.model('OAuthClients', OAuthClientsSchema);
 mongoose.model('OAuthUsers', OAuthUsersSchema);
+mongoose.model('OAuthAuthorizedClients', OAuthAuthorizedClients);
 
 var OAuthAccessTokensModel = mongoose.model('OAuthAccessTokens'),
 	OAuthClientsModel = mongoose.model('OAuthClients'),
@@ -73,7 +81,11 @@ model.grantTypeAllowed = function (clientId, grantType, callback) {
 	console.log('in grantTypeAllowed (clientId: ' + clientId + ', grantType: ' + grantType + ')');
 
 	if (grantType === 'password') {
-		return callback(false, authorizedClientIds.indexOf(clientId) >= 0);
+		OAuthAuthorizedClients.findOne({client_id:clientId}, function(err, result){
+			if (err) return callback(false, false);
+			return callback(false, result.indexOf(clientId) >= 0);
+		});
+		//return callback(false, authorizedClientIds.indexOf(clientId) >= 0);
 	}
 
 	callback(false, true);
