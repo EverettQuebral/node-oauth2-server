@@ -53,7 +53,7 @@ var OAuthAuthorizedClientsSchema = new Schema({
 mongoose.model('OAuthAccessTokens', OAuthAccessTokensSchema);
 mongoose.model('OAuthClients', OAuthClientsSchema);
 mongoose.model('OAuthUsers', OAuthUsersSchema);
-mongoose.model('OAuthAuthorizedClients', OAuthAuthorizedClients);
+mongoose.model('OAuthAuthorizedClients', OAuthAuthorizedClientsSchema);
 
 var OAuthAccessTokensModel = mongoose.model('OAuthAccessTokens'),
 	OAuthClientsModel = mongoose.model('OAuthClients'),
