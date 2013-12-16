@@ -57,7 +57,8 @@ mongoose.model('OAuthAuthorizedClients', OAuthAuthorizedClientsSchema);
 
 var OAuthAccessTokensModel = mongoose.model('OAuthAccessTokens'),
 	OAuthClientsModel = mongoose.model('OAuthClients'),
-	OAuthUsersModel = mongoose.model('OAuthUsers');
+	OAuthUsersModel = mongoose.model('OAuthUsers'),
+	OAuthAuthorizedClientsModel = mongoose.model('OAuthAuthorizedClients');
 
 //
 // node-oauth2-server callbacks
@@ -81,14 +82,14 @@ model.grantTypeAllowed = function (clientId, grantType, callback) {
 	console.log('in grantTypeAllowed (clientId: ' + clientId + ', grantType: ' + grantType + ')');
 
 	if (grantType === 'password') {
-		OAuthAuthorizedClients.findOne({client_id:clientId}, function(err, result){
+		OAuthAuthorizedClientsModel.findOne({client_id:clientId}, function(err, result){
 			if (err) return callback(false, false);
-			return callback(false, result.indexOf(clientId) >= 0);
+			return callback(false, result.client_id === clientId);
 		});
-		//return callback(false, authorizedClientIds.indexOf(clientId) >= 0);
 	}
-
-	callback(false, true);
+	else {
+		callback(false, true);
+	}
 };
 
 model.saveAccessToken = function (accessToken, clientId, userId, expires, callback) {
