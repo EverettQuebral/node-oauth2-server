@@ -81,6 +81,7 @@ var authorizedClientIds = ['s6BhdRkqt3', 'toto'];
 model.grantTypeAllowed = function (clientId, grantType, callback) {
 	console.log('in grantTypeAllowed (clientId: ' + clientId + ', grantType: ' + grantType + ')');
 
+	// I'm not checking the client_secret
 	if (grantType === 'password') {
 		OAuthAuthorizedClientsModel.findOne({client_id:clientId}, function(err, result){
 			if (err) return callback(false, false);
